@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль — Status</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"> Status</div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link active">Профиль</a>
+            <a href="settings.html" class="nav-link">Настройки</a>
+        </nav>
+        <button class="settings-btn" onclick="openSettings()" title="Настройки">⚙️</button>
+    </header>
+
+    <main class="main">
+
+        <!-- ПРОФИЛЬ -->
+        <div class="profile-card">
+            <div class="profile-avatar-section">
+                <div class="avatar-wrapper" onclick="document.getElementById('avatar-input').click()">
+                    <img src="https://via.placeholder.com/200" alt="Аватарка" class="profile-avatar" id="profile-avatar">
+                    <div class="avatar-overlay"><span>📷 Изменить</span></div>
+                </div>
+                <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="uploadAvatar(event)">
+            </div>
+
+            <div class="profile-info">
+                <div class="profile-names">
+                    <h1 class="profile-username" id="profile-username">@username</h1>
+                    <p class="profile-nickname" id="profile-nickname">Имя Фамилия</p>
+                </div>
+                <div class="profile-bio-section">
+                    <p class="profile-bio" id="profile-bio">Описание пока не заполнено...</p>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat"><span class="stat-number" id="stat-posts">0</span><span class="stat-label">Постов</span></div>
+                    <div class="stat"><span class="stat-number" id="stat-friends">0</span><span class="stat-label">Друзей</span></div>
+                    <div class="stat"><span class="stat-number" id="stat-likes">0</span><span class="stat-label">Лайков</span></div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-primary" onclick="editProfile()">Редактировать</button>
+                    <button class="btn btn-secondary" onclick="shareProfile()">Поделиться</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- СОЗДАНИЕ ПОСТА -->
+        <div class="create-post">
+            <div class="create-post-header">
+                <img src="https://via.placeholder.com/50" alt="Аватар" class="create-post-avatar" id="create-post-avatar">
+                <span class="create-post-name" id="create-post-name">@username</span>
+            </div>
+
+            <textarea class="create-post-textarea" id="post-text" placeholder="Что нового? Напиши текст или загрузи картинку..."></textarea>
+
+            <div class="create-post-preview" id="post-preview" style="display: none;">
+                <img src="" alt="Превью" id="post-preview-img">
+                <button class="create-post-remove" onclick="removePreview()">✕</button>
+            </div>
+
+            <div class="create-post-actions">
+                <label class="create-post-upload">
+                    🖼️ Картинка
+                    <input type="file" id="post-image-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                </label>
+                <button class="btn btn-primary" onclick="createPost()">Опубликовать</button>
+            </div>
+        </div>
+
+        <!-- ЛЕНТА -->
+        <div class="posts-feed" id="posts-feed"></div>
+
+        <!-- ЧАТ СО STATUS BOT -->
+        <div class="chat-window-inline">
+            <div class="chat-header">
+                <div class="chat-header-avatar-wrapper">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=StatusBot" alt="Status Bot" class="chat-header-avatar">
+                    <span class="online-dot"></span>
+                </div>
+                <div class="chat-header-info">
+                    <div class="chat-header-name-row">
+                        <h3 class="chat-header-name">Status Bot</h3>
+                        <span class="verified-badge">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .495.083.965.238 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="chat-header-status">в сети</p>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages"></div>
+
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Написать Status Bot..." onkeydown="if(event.key === 'Enter') sendMessage()">
+                <button class="chat-send-btn" onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <div class="modal-overlay" id="setup-modal">
+        <div class="modal">
+            <h2 class="modal-title">Настрой свой профиль</h2>
+            <p class="modal-subtitle">Заполни данные, чтобы начать</p>
+
+            <label class="modal-label">Ник (username)</label>
+            <input type="text" class="modal-input" id="setup-username" placeholder="например: alex_dev" maxlength="20">
+
+            <label class="modal-label">Имя</label>
+            <input type="text" class="modal-input" id="setup-nickname" placeholder="например: Александр" maxlength="30">
+
+            <label class="modal-label">Описание (необязательно)</label>
+            <textarea class="modal-input modal-textarea" id="setup-bio" placeholder="Расскажи о себе..." maxlength="200"></textarea>
+
+            <button class="btn btn-primary modal-btn" onclick="saveSetup()">Сохранить</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

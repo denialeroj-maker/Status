@@ -1,0 +1,80 @@
+<<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки — Status</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"> Status</div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Профиль</a>
+            <a href="settings.html" class="nav-link active">Настройки</a>
+        </nav>
+        <button class="settings-btn" onclick="goBack()" title="Назад">←</button>
+    </header>
+
+    <main class="main">
+        <div class="settings-container">
+            <h1 class="settings-title">Настройки</h1>
+
+            <div class="settings-tabs">
+                <button class="tab-btn active" onclick="switchTab('style', this)">🎨 Стиль</button>
+                <button class="tab-btn" onclick="switchTab('account', this)">👤 Аккаунт</button>
+                <button class="tab-btn" onclick="switchTab('privacy', this)">🔒 Приватность</button>
+            </div>
+
+            <div class="tab-content active" id="tab-style">
+                <h2 class="tab-title">Тема оформления</h2>
+                <p class="tab-description">Выбери, как будет выглядеть твоя соцсеть</p>
+
+                <div class="theme-options">
+                    <div class="theme-card" onclick="setTheme('light')" data-theme-name="light">
+                        <div class="theme-preview light-preview">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-circle"></div>
+                                <div class="preview-lines">
+                                    <div class="preview-line"></div>
+                                    <div class="preview-line short"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="theme-name"> Светлая</p>
+                    </div>
+
+                    <div class="theme-card" onclick="setTheme('dark')" data-theme-name="dark">
+                        <div class="theme-preview dark-preview">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-circle"></div>
+                                <div class="preview-lines">
+                                    <div class="preview-line"></div>
+                                    <div class="preview-line short"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="theme-name"> Тёмная</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-account">
+                <h2 class="tab-title">Аккаунт</h2>
+                <p class="tab-description">Сброс данных профиля</p>
+                <button class="btn btn-danger" onclick="resetAccount()">Сбросить аккаунт</button>
+            </div>
+
+            <div class="tab-content" id="tab-privacy">
+                <h2 class="tab-title">Приватность</h2>
+                <p class="tab-description">Скоро добавим</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
